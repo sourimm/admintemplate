@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-md-12">
+    <app-card [title]="''" class="" [cardOptionBlock]="true">
+
+      <div class="row">
+        <div class="col-md-5 cours">
+          <h2> Help Categories List: </h2>
+        </div>
+        <div class="col-md-5 text-right Save-btn add-butn">
+          <button (click)="getCategoryFormData()">Add New</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-lg-10 pt-3">
+          <table class="table table-bordered">
+            <thead>
+            <tr class="bg-light serial">
+              <th>#</th>
+              <th>Title</th>
+              <th>Slug</th>
+              <th>Active</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr *ngIf="loading" class="text-center serial">
+              <td colspan="10"><i class="fa fa-spinner fa-spin"></i></td>
+            </tr>
+
+            <tr class="serial" *ngFor="let category of categories; let i = index">
+              <td scope="row"><strong>{{ i + 1 }}</strong></td>
+              <td>{{ category.title }}</td>
+              <td>{{ category.slug }}</td>
+              <td>
+                <ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small" [checked]="category.active" (click)="changeStatus(category.id)"></ui-switch>
+              </td>
+              <td>
+                <button class="btn btn-info btn-sm mr-2" (click)="getCategoryFormData(+category.id)"><i class="fa fa-pencil m-0"></i></button>&nbsp;
+                <button class="btn btn-danger btn-sm" (click)="openConfirmsSwal(category.id)"><i class="fa fa-trash m-0"></i></button>
+              </td>
+            </tr>
+            </tbody>
+
+            <tbody *ngIf="categories.length === 0">
+            <tr class="serial">
+              <td colspan="10" class="text-center">{{ message }}</td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'" *ngIf="addModalLarge">
+  <div class="app-modal-header">
+    <h4 class="modal-title" *ngIf="!edit">Add Category</h4>
+    <h4 class="modal-title" *ngIf="edit">Edit Category</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width">
+    <form (ngSubmit)="submit()" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title_class">
+            <span class="bold">Title:&nbsp;<span class="text-danger">*</span></span>
+            <span><input type="text" [(ngModel)]="title" (keyup)="slugify(title)" [ngModelOptions]="{standalone: true}"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.title }}</p>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.slug }}</p>
+          </div>
+          <div class="title_class">
+            <span class="bold">Slug:&nbsp;</span>
+            <span><input type="text" [value]="slug" disabled></span>
+          </div>
+          <div class="title_class">
+            <span class="bold">Active:&nbsp;</span>
+            <span><ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small" [(ngModel)]="active" [ngModelOptions]="{standalone: true}"></ui-switch></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="follow_class">
+        <button type="submit" class="submit" [disabled]="formProcessing">
+          <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+          Save
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

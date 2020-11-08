@@ -1,0 +1,176 @@
+<div class="row">
+
+  <div class="col-md-12" *ngIf="!loadBannerImage">
+    <button type="button" class="btn btn-info btn-sm mt-3 mr-3 pull-right" (click)="openModal()">
+      Banner Image
+    </button>
+  </div>
+
+  <div class="col-md-7">
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+          <h6 class="taskboard-header">Banners</h6>
+          <div class="taskboard-cards" [dragula]='"banners"' [(dragulaModel)]="bannersArray">
+            <div class="taskboard-task bg-light" *ngFor="let bannerinfo of banners">
+              <div class="row">
+                <div class="col-md-8">
+                  <h2>{{bannerinfo.heading_line_1}}</h2>
+                  <!--<img *ngIf="bannerinfo.media_type.split('/')[0] === 'image'"-->
+                  <!--[src]="bannerinfo.media_path">-->
+                  <!--<iframe *ngIf="bannerinfo.media_type.split('/')[0] === 'video'"-->
+                  <!--[src]="bannerinfo.media_path | sanitizeUrl"></iframe>-->
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-info btn-sm m-0 mr-2"
+                          (click)="getFormData(bannerinfo.id)"><i class="fa fa-pencil"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm m-0"
+                          (click)="openConfirmsSwal(bannerinfo.id)"><i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="taskboard-task bg-light" *ngIf="banners.length === 0">
+              <div class="row">
+                <div class="col-md-12">
+                  No Records Found
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <button type="button" class="btn btn-success btn-sm mt-3 pull-right" (click)="submitOrder()">Save
+            Order
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-5">
+
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+
+          <h6 class="taskboard-header">{{ pageTitle }}</h6>
+
+          <div class="taskboard-cards">
+
+            <div *ngIf="form_loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+
+            <form [formGroup]="bannerForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!form_loading">
+
+              <label>Heading Line 1</label>
+              <input type="text" class="form-control" formControlName="heading_line_1">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.heading_line_1 }}</p>
+
+              <label>Heading Line 2</label>
+              <input type="text" class="form-control" formControlName="heading_line_2">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.heading_line_2 }}</p>
+
+              <label>Description</label>
+              <textarea type="text" class="form-control" formControlName="description"></textarea>
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.description }}</p>
+
+              <label>Button Text</label>
+              <input type="text" class="form-control" formControlName="button_text">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.button_text }}</p>
+
+              <label>Button URL</label>
+              <input type="text" class="form-control" formControlName="button_url">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.button_url }}</p>
+
+              <!--<label>Image</label>-->
+              <!--<input type="file" class="form-control" formControlName="file"-->
+                     <!--(change)="fileProgress($event)"/>-->
+              <!--<p class="text-danger" *ngIf="validationErrors">{{ validationErrors.media_path }}</p>-->
+
+              <!--<div *ngIf="previewUrl">-->
+                <!--<div class="preview mt-3">-->
+                  <!--<label>Preview</label>-->
+                  <!--<div class="image-preview mt-2">-->
+                    <!--<img *ngIf="image" [src]="previewUrl"/>-->
+                    <!--<iframe *ngIf="video" [src]="previewUrl | sanitizeUrl"></iframe>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <!--<div *ngIf="edit">-->
+                <!--<div class="preview mt-3">-->
+                  <!--<label>Preview</label>-->
+                  <!--<div class="image-preview mt-2">-->
+                    <!--<img *ngIf="image" [src]="bannerData.media_path"/>-->
+                    <!--<iframe *ngIf="video" [src]="bannerData.media_path | sanitizeUrl"></iframe>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <div class="Save-btn">
+                <button class="btn-sm" type="submit" [disabled]="formProcessing">
+                  <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+                  Save
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-lg'" *ngIf="addModalLarge">
+  <div class="app-modal-header">
+    <h4 class="modal-title">Banner Image</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width">
+    <label>Image</label>
+    <input type="file" class="form-control"
+           (change)="fileProgress($event)"/>
+    <p class="text-danger" *ngIf="bannerValidationErrors">{{ bannerValidationErrors.media_path }}</p>
+
+    <div *ngIf="previewUrl">
+      <div class="preview mt-3">
+        <label>Preview</label>
+        <div class="image-preview mt-2">
+          <img *ngIf="image" [src]="previewUrl"/>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="bannerImageData.media_path_url !== ''">
+      <div class="preview mt-3" *ngIf="showImage">
+        <label>Preview</label>
+        <div class="image-preview mt-2">
+          <img [src]="bannerImageData.media_path_url"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="Save-btn" *ngIf="previewUrl">
+      <button class="btn-sm" type="submit" [disabled]="formProcessing" (click)="submitBannerImage()">
+        <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+        Save
+      </button>
+    </div>
+
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

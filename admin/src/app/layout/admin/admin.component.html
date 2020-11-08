@@ -1,0 +1,404 @@
+<div id="pcoded" class="pcoded"
+     [ngClass]="animateSidebar"
+     [attr.nav-type]="navType"
+     [attr.theme-layout]="themeLayout"
+     [attr.vertical-placement]="verticalPlacement"
+     [attr.vertical-layout]="verticalLayout"
+     [attr.pcoded-device-type]="pcodedDeviceType"
+     [attr.vertical-nav-type]="verticalNavType"
+     [attr.vertical-effect]="verticalEffect"
+     [attr.vnavigation-view]="vnavigationView"
+     [attr.fream-type]="freamType"
+     [attr.sidebar-img]="sidebarImg"
+     [attr.sidebar-img-type]="sidebarImgType"
+     [attr.layout-type]="layoutType"
+     (window:resize)="onResize($event)"
+>
+  <div class="pcoded-overlay-box"></div>
+  <div class="pcoded-container navbar-wrapper">
+    <nav class="navbar header-navbar pcoded-header" [attr.header-theme]="headerTheme"
+         [attr.pcoded-header-position]="pcodedHeaderPosition">
+      <div class="navbar-wrapper">
+        <div class="navbar-logo">
+          <a class="mobile-menu ripple light" id="mobile-collapse" href="javascript:" (click)="toggleOpened($event)"
+             [exclude]="'#main_navbar'" (clickOutside)="onClickedOutsideSidebar($event)">
+            <i class="feather" [ngClass]="toggleIcon"></i>
+          </a>
+          <a [routerLink]="['/dashboard/']" class="ripple light">
+            <img class="img-fluid header-log" src="assets/images/header-logo.png" alt=""/>
+            <!--  <span><strong>Life</strong> Skills</span> -->
+          </a>
+          <a href="javascript:" class="mobile-options ripple light" (click)="toggleHeaderNavRight()">
+            <i class="feather icon-more-horizontal"></i>
+          </a>
+        </div>
+        <div class="navbar-container container-fluid">
+          <ul class="nav-left">
+            <li class="ripple light">
+              <div class="sidebar_toggle"><a href="javascript:"><i class="icon-menu"></i></a></div>
+            </li>
+
+            <!--<li class="header-search">-->
+              <!--<div id="main-search" class="main-search morphsearch-search">-->
+                <!--<div class="input-group">-->
+                  <!--<span class="input-group-prepend search-close" (click)="searchOff()"><i class="feather icon-x input-group-text"></i></span>-->
+                  <!--<input class="form-control" [style.width]="searchWidthString">-->
+                  <!-- <span class="input-group-append search-btn" (click)="searchOn()"><i class="feather icon-search input-group-text"></i></span> -->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</li>-->
+            <!--<li class="ripple light" appToggleFullScreen>-->
+              <!--<a href="javascript:">-->
+                <!--<i class="feather icon-maximize full-screen"></i>-->
+              <!--</a>-->
+            <!--</li>-->
+          </ul>
+          <!--<div class="my_header_div">-->
+            <!--&lt;!&ndash;<div class='contact_us_div'><a href="#" class="contact_us_button"> Contact Us </a></div>&ndash;&gt;-->
+            <!--<div class='lang_us_div'>-->
+              <!--&lt;!&ndash;  <select class="lang_drop">-->
+                 <!--<option>English</option>-->
+                 <!--<option>Urdu</option>-->
+                 <!--<option>Arabic</option>-->
+               <!--</select> &ndash;&gt;-->
+              <!--<a href="javascript:void(0);" (click)="toggleLangDropdown()">Language</a>-->
+
+
+            <!--</div>-->
+
+            <!--<div class='social_us_div'>-->
+              <!--<span> <a href="#"><i class="fa fa-facebook-f mysocial_icons"></i></a> </span>-->
+              <!--<span><a href="#"><i class="fa fa-twitter mysocial_icons"></i></a> </span>-->
+              <!--<span><a href="#"><i class="fa fa-instagram mysocial_icons"></i></a> </span>-->
+              <!--<span><a href="#"><i class="fa fa-youtube mysocial_icons"></i></a> </span>-->
+
+            <!--</div>-->
+          <!--</div>-->
+          <ul [@notificationBottom]="langDropdown" class="show-notification profile-notification langDropdownClass_ul"
+              [ngClass]="langDropdownClass">
+
+            <li class="ripple langDropdownClass" (click)="logout()">
+              <a href="javascript:">
+                <!--   <i class="feather icon-log-out"></i> --> English
+              </a>
+
+            </li>
+            <li class="ripple langDropdownClass" (click)="logout()">
+              <a href="javascript:">
+                <!--  <i class="feather icon-log-out"></i> --> Urdu
+              </a>
+            </li>
+            <li class="ripple langDropdownClass" (click)="logout()">
+              <a href="javascript:">
+                <!-- <i class="feather icon-log-out"></i> --> Arabic
+              </a>
+
+            </li>
+
+
+          </ul>
+
+          <ul [@mobileHeaderNavRight]="navRight" [ngClass]="navRight" class="nav-right">
+            <li class="hide_"> Contact US</li>
+            <li class="nav-item dropdown hide_">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+
+
+            <li class="myright_icons_border">
+              <span (clickOutside)="notificationOutsideClick('live')" class="header-notification ripple light" (click)="toggleLiveNotification()">
+                <a href="javascript:void(0)">
+                  <i class="fa fa-bell myright_icons"></i>
+                  <span class="badge badge-danger badge-top-right"></span>
+                </a>
+                <ul [@notificationBottom]="liveNotification" class="show-notification" [ngClass]="liveNotificationClass">
+                  <li>
+                    <h6>Notifications</h6>
+                    <label class="label label-danger">New</label>
+                  </li>
+
+                  <li class="ripple">
+                    <div class="media">
+                      <div class="media-body">
+                        <p class="notification-msg">No new notifications</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </span>
+              <!--<span> <a href="javascript:void(0)"><i class="fa fa-bell myright_icons"></i></a> </span>-->
+              <span><a>
+                <span class="label-icon">
+                  <i class="fa fa-envelope myright_icons"></i>
+                  <label class="badge badge-danger badge-top-right"></label>
+                </span>
+              </a> </span>
+              <!--<span><a href="javascript:void(0)"><i class="fa fa-calendar myright_icons"></i></a> </span>-->
+              <!--<span><a href="javascript:void(0)"><i class="fa fa-question myright_icons"></i></a> </span>-->
+            </li>
+
+
+            <li (clickOutside)="notificationOutsideClick('profile')"
+                class="user-profile header-notification ripple light profile_user"
+                (click)="toggleProfileNotification()">
+              <a href="javascript:">
+                <img [src]="avatar" class="img-radius" alt="User-Profile-Image">
+                <span class="user_color">{{ name }}</span>
+                <i class="feather icon-chevron-down user_icon_color"></i>
+              </a>
+              <ul [@notificationBottom]="profileNotification" class="show-notification profile-notification"
+                  [ngClass]="profileNotificationClass">
+                <!--<li class="ripple">-->
+                  <!--<a href="javascript:">-->
+                    <!--<i class="feather icon-settings"></i> Settings-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li class="ripple">-->
+                  <!--<a href="javascript:">-->
+                    <!--<i class="feather icon-user"></i> Profile-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li class="ripple">-->
+                  <!--<a href="javascript:">-->
+                    <!--<i class="feather icon-mail"></i> My Messages-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li class="ripple">-->
+                  <!--<a href="javascript:">-->
+                    <!--<i class="feather icon-lock"></i> Lock Screen-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li class="ripple">-->
+                  <!--<a [routerLink]="['/users/profile/edit']">-->
+                    <!--<i class="feather icon-user"></i> Edit Profile-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--<li class="ripple">-->
+                  <!--<a [routerLink]="['/user/change/password']">-->
+                    <!--<i class="feather icon-lock"></i> Change Password-->
+                  <!--</a>-->
+                <!--</li>-->
+                <li class="ripple">
+                  <a [routerLink]="['/settings/change/password']">
+                    <i class="feather icon-lock"></i> Change Password
+                  </a>
+                </li>
+                <!--<li class="ripple">-->
+                  <!--<a [routerLink]="['/register']">-->
+                    <!--<i class="feather icon-lock"></i> Register-->
+                  <!--</a>-->
+                <!--</li>-->
+                <li class="ripple" (click)="logout()">
+                  <a href="javascript:">
+                    <i class="feather icon-log-out"></i> Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin"> <!--  -->
+      <div class="pcoded-wrapper">
+        <nav
+          id="main_navbar"
+          class="pcoded-navbar"
+          (clickOutside)="onClickedOutsideSidebar($event)"
+          [exclude]="'#mobile-collapse'"
+          [attr.navbar-theme]="navBarTheme"
+          [attr.active-item-theme]="activeItemTheme"
+          sub-item-theme="theme2"
+          active-item-style="style0"
+          [attr.pcoded-header-position]="pcodedHeaderPosition"
+          [attr.pcoded-navbar-position]="pcodedSidebarPosition"
+          [style.top]="headerFixedTop"
+          [style.height]="sidebarFixedNavHeight"
+          (mouseleave)="hoverOutsideSidebar()"
+        >
+          <perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config"
+                             [ngClass]="perfectDisable">
+            <div class="pcoded-inner-navbar main-menu" appAccordion>
+              <!--<div class="">-->
+                <!--<div class="main-menu-header">-->
+                  <!--<img class="img-menu-user img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">-->
+                  <!--<div class="user-details">-->
+                    <!--<p id="more-details" (click)="toggleOpenedSidebar()"> John Doe-->
+                      <!--<i class="feather icon-chevron-down m-l-10"></i>-->
+                    <!--</p>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="main-menu-content">-->
+                  <!--<ul>-->
+                    <!--<li [@mobileMenuTop]="isCollapsedSideBar" class="more-details" [ngClass]="isCollapsedSideBar">-->
+                      <!--<a href="javascript:" [routerLink]="['/user/profile']" class="ripple"><i class="feather icon-user"></i>View Profile</a>-->
+                      <!--<a href="javascript:" class="ripple"><i class="feather icon-settings"></i>Settings</a>-->
+                      <!--<a href="javascript:" class="ripple" target="_blank"><i class="feather icon-log-out"></i>Logout</a>-->
+                    <!--</li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
+                <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}</div>
+                <ul class="pcoded-item pcoded-left-item" [attr.item-border]="itemBorder"
+                    [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"
+                    *ngFor="let asideItem of asideItems.main" appAccordionLink group="{{asideItem.state}}">
+                  <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
+                      group="{{asideItem.state}}">
+                    <a [routerLinkActive]="['active']" class="ripple" href="{{asideItem.external}}"
+                       target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle>
+                      <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label }}</b></span>
+                      <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                      <span *ngFor="let asideBadge of asideItem.badge"
+                            class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
+                      <span class="pcoded-mcaret"></span>
+                    </a>
+                  </li>
+
+                  <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'link'" appAccordionLink
+                      group="{{asideItem.state}}">
+                    <a [routerLinkActive]="['active']" class="ripple"
+                       [routerLink]="['/' + asideItem.main_state + '/' + asideItem.state]"
+                       target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle
+                       *ngIf="asideItem.main_state; else mainContent">
+                      <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label }}</b></span>
+                      <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                      <span *ngFor="let asideBadge of asideItem.badge"
+                            class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
+                      <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ng-template #mainContent>
+                      <a [routerLinkActive]="['active']" class="ripple" [routerLink]="['/' + asideItem.state]"
+                         target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle>
+                        <span class="pcoded-micon"><i
+                          class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label }}</b></span>
+                        <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                        <span *ngFor="let asideBadge of asideItem.badge"
+                              class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
+                        <span class="pcoded-mcaret"></span>
+                      </a>
+                    </ng-template>
+                  </li>
+                  <li (mouseleave)="fireClickLeave($event)" routerLinkActive="active pcoded-trigger"
+                      *ngIf="asideItem.type === 'sub'" class="pcoded-hasmenu" [attr.dropdown-icon]="dropDownIcon"
+                      [attr.subitem-icon]="subItemIcon" appAccordionLink group="{{asideItem.state}}">
+                    <a (mouseover)="fireClick($event)" [routerLinkActive]="['active']" href="javascript:;"
+                       appAccordionToggle>
+                      <div class="ripple menu-ripple"></div>
+                      <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label }}</b></span>
+                      <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                      <span *ngFor="let asideBadge of asideItem.badge"
+                            class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
+                      <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                      <ng-template ngFor let-asideChildren [ngForOf]="asideItem.children">
+                        <li [routerLinkActive]="['active']" *ngIf="asideChildren.type !== 'sub'">
+                          <a [routerLinkActive]="['active']"
+                             [routerLink]="['/' + asideItem.state + '/' + asideChildren.state]"
+                             target="{{asideChildren.target ? '_blank' : '_self'}}">
+                            <div class="ripple menu-ripple"></div>
+                            <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
+                            <span class="pcoded-mtext">{{ asideChildren.name }} </span>
+                            <span *ngFor="let asideChildrenBadge of asideChildren.badge"
+                                  class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
+                            <span class="pcoded-mcaret"></span>
+                          </a>
+                        </li>
+
+                        <li (mouseleave)="fireClickLeave($event)" routerLinkActive="active pcoded-trigger" class="pcoded-hasmenu"
+                            [attr.dropdown-icon]="dropDownIcon" [attr.subitem-icon]="subItemIcon"
+                            *ngIf="asideChildren.type === 'sub'" appAccordionLink group="sub-toggled">
+                          <a (mouseover)="fireClick($event)" [routerLinkActive]="['active']" href="javascript:;"
+                             appAccordionToggle>
+                            <div class="ripple menu-ripple"></div>
+                            <span class="pcoded-micon"><i class="icon-direction-alt"></i></span>
+                            <span class="pcoded-mtext">{{ asideChildren.name }}</span>
+                            <span *ngFor="let asideChildrenBadge of asideChildren.badge"
+                                  class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
+                            <span class="pcoded-mcaret"></span>
+                          </a>
+                          <ul class="pcoded-submenu">
+                            <ng-template ngFor let-asideChildrenSub [ngForOf]="asideChildren.children">
+                              <li [routerLinkActive]="['active']">
+                                <a [routerLinkActive]="['active']"
+                                   [routerLink]="['/' + asideItem.state + '/' + asideChildren.state + '/' + asideChildrenSub.state]"
+                                   target="{{asideChildrenSub.target ? '_blank' : '_self'}}">
+                                  <div class="ripple menu-ripple"></div>
+                                  <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
+                                  <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span>
+                                  <span *ngFor="let asideChildrenSubBadge of asideChildrenSub.badge"
+                                        class="pcoded-badge label label-{{ asideChildrenSubBadge.type }}">{{asideChildrenSubBadge.value}}</span>
+                                  <span class="pcoded-mcaret"></span>
+                                </a>
+                              </li>
+                            </ng-template>
+                          </ul>
+                        </li>
+                      </ng-template>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </perfect-scrollbar>
+        </nav>
+        <div class="pcoded-content">
+          <app-breadcrumbs></app-breadcrumbs>
+          <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+              <div class="page-wrapper">
+                <router-outlet>
+                  <title></title>
+                  <ng2-toasty [position]="'top-right'"></ng2-toasty>
+                  <app-spinner></app-spinner>
+                </router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+
+  <div class="app-modal-header">
+    <div *ngIf="!announcementDetailLoading">
+      <h4 class="modal-title">Notification</h4>
+    </div>
+
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body" *ngIf="!announcementDetailLoading" style="max-height: 500px; overflow: auto;">
+    {{announcement.description}}
+
+    <div class="mt-5 text-right">
+      <button type="button" class="btn btn-default ripple mr-1" *ngIf="!announcementDetailLoading" (click)="acceptRequest(announcement.request_id)">Accept</button>
+      <button type="button" class="btn btn-danger ripple" *ngIf="!announcementDetailLoading" (click)="rejectRequest(announcement.request_id)">Reject</button>
+    </div>
+  </div>
+
+  <div class="app-modal-body" *ngIf="announcementDetailLoading">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+  </div>
+</app-modal-basic>

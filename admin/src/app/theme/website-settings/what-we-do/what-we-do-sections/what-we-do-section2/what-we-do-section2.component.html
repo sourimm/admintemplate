@@ -1,0 +1,120 @@
+<app-modal-basic #modalLarge [dialogClass]="'modal-lg'" *ngIf="addModalLarge" class="largeModalCustom">
+  <div class="app-modal-header">
+    <h4 class="modal-title">Add Section</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width" *ngIf="!sectionDataLoading">
+    <form [formGroup]="sectionForm" (ngSubmit)="submit()" autocomplete="off">
+      <div class="row">
+
+        <div class="col-md-4">
+
+          <div class="title_class">
+            <span class="bold">Sub Heading 1:</span>
+            <span><input type="text" class="form-control" formControlName="sub_heading_1"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_heading_1 }}</p>
+          </div>
+
+          <div class="desc_class">
+            <span class="bold">Sub Description 1:</span>
+            <span><textarea type="text" class="form-control" formControlName="sub_description_1"></textarea></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_description_1 }}</p>
+          </div>
+
+          <div class="title_class">
+            <span class="bold">Image 1:</span>
+            <span><input type="text" class="form-control" formControlName="sub_media_path_1"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_media_path_1 }}</p>
+          </div>
+
+          <div class="title_class">
+            <span class="bold">Color 1:</span>
+            <span><input type="color" class="form-control" formControlName="sub_color_1"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_color_1 }}</p>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="title_class">
+            <span class="bold">Sub Heading 2:</span>
+            <span><input type="text" class="form-control" formControlName="sub_heading_2"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_heading_2 }}</p>
+          </div>
+
+          <div class="desc_class">
+            <span class="bold">Sub Description 2:</span>
+            <span><textarea type="text" class="form-control" formControlName="sub_description_2"></textarea></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_description_2 }}</p>
+          </div>
+
+          <div class="title_class">
+            <span class="bold">Image 2:</span>
+            <span><input type="text" class="form-control" formControlName="sub_media_path_2"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_media_path_2 }}</p>
+          </div>
+
+          <div class="title_class">
+            <span class="bold">Color 2:</span>
+            <span><input type="color" class="form-control" formControlName="sub_color_2"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_color_2 }}</p>
+          </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="title_class">
+            <span class="bold">Sub Heading 3:</span>
+            <span><input type="text" class="form-control" formControlName="sub_heading_3"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_heading_3 }}</p>
+          </div>
+
+          <div class="desc_class">
+            <span class="bold">Sub Description 3:</span>
+            <span><textarea type="text" class="form-control" formControlName="sub_description_3"></textarea></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_description_3 }}</p>
+          </div>
+
+          <div class="title_class">
+            <span class="bold">Image 3:</span>
+            <span><input type="text" class="form-control" formControlName="sub_media_path_3"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_media_path_3 }}</p>
+          </div>
+
+          <div class="title_class">
+            <span class="bold">Color 3:</span>
+            <span><input type="color" class="form-control" formControlName="sub_color_3"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.sub_color_3 }}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="follow_class">
+        <button type="submit" class="submit" [disabled]="formProcessing">
+          <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+          Save
+        </button>
+      </div>
+
+    </form>
+    <!-- <h5>Large Modal</h5>
+    <p>This is Photoshop's version of Lorem IpThis is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p> -->
+  </div>
+
+  <div class="app-modal-body for_width" *ngIf="sectionDataLoading">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <app-card [title]="pageTitle" class="" [cardOptionBlock]="true">
+      <div *ngIf="form_loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+      <form [formGroup]="articleForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!form_loading">
+        <div class="col-md-6 text-right view-btn">
+          <button type="button" (click)="addCategory()"> Add Category </button>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Category </label>
+              <div class="col-sm-9">
+                <ng-select [ngClass]="'ng-select'" [options]="categories" formControlName="category_id"></ng-select>
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.category_id }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6 title-head">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Title </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="title" (keyup)="slugify()">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.title }}</p>
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.slug }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 title-head">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Slug </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" [value]="slug" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 title-head">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Active </label>
+              <div class="col-sm-9">
+                <ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small" formControlName="active"></ui-switch>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 title-head">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Is Top Article </label>
+              <div class="col-sm-9">
+                <ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small" formControlName="is_top_article"></ui-switch>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Description </label>
+            </div>
+          </div>
+
+          <div class="col-md-12 title-head mb-5">
+
+            <!--<ckeditor [editor]="editor" [ngModel]="description" [ngModelOptions]="{standalone: true}"></ckeditor>-->
+
+            <quill-editor
+              [(ngModel)]="editorContent" [ngModelOptions]="{standalone: true}"
+              [options]="editorConfig"
+              (blur)="onEditorBlured($event)"
+              (focus)="onEditorFocused($event)"
+              (ready)="onEditorCreated($event)"
+              (change)="onContentChanged($event)">
+            </quill-editor>
+
+          </div>
+        </div>
+
+        <div class="col-md-12 p-0">
+          <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.description }}</p>
+        </div>
+
+
+        <div class="Save-btn">
+          <button type="submit" [disabled]="formProcessing">
+            <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+            Save
+          </button>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'" *ngIf="addModalLarge">
+  <div class="app-modal-header">
+    <h4 class="modal-title">Add Category</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width">
+    <form (ngSubmit)="submitCategory()" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title_class">
+            <span class="bold">Title:&nbsp;<span class="text-danger">*</span></span>
+            <span><input type="text" [(ngModel)]="categoryTitle" (keyup)="slugifyCategory(categoryTitle)" [ngModelOptions]="{standalone: true}"></span>
+            <p class="text-danger" *ngIf="validationErrorsCategory">{{ validationErrorsCategory.title }}</p>
+            <p class="text-danger" *ngIf="validationErrorsCategory">{{ validationErrorsCategory.slug }}</p>
+          </div>
+          <div class="title_class">
+            <span class="bold">Slug:&nbsp;</span>
+            <span><input type="text" [value]="categorySlug" disabled></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="follow_class">
+        <button type="submit" class="submit" [disabled]="formProcessingCategory">
+          <i class="fa fa-spin fa-spinner" *ngIf="formProcessingCategory"></i>
+          Save
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

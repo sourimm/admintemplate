@@ -1,0 +1,25 @@
+.taskboard{
+  img{
+    height: 150px;
+    width: 100%;
+  }
+  iframe{
+    height: 150px;
+    width: 100%;
+  }
+}
+
+.preview{
+  img{
+    height: 200px;
+    width: 100%;
+  }
+  iframe{
+    height: 200px;
+    width: 100%;
+  }
+}
+
+.taskboard .taskboard-wrapper{
+  width: 100%;
+}

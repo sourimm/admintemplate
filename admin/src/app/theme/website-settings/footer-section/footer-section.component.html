@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <app-card [title]="'Footer Section'" class="" [cardOptionBlock]="true">
+      <div *ngIf="loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+      <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off" *ngIf="!loading">
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="facebook_link"> Facebook Link&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="facebook_link" id="facebook_link">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.facebook_link }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="twitter_link"> Twitter Link&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="twitter_link" id="twitter_link">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.twitter_link }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="linkedin_link"> LinkedIn Link&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="linkedin_link" id="linkedin_link">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.linkedin_link }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="phone"> Phone&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="phone" id="phone">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.phone }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="email"> Email&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="email" id="email">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.email }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="description"> Description&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="description" id="description">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.description }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="placeholder"> Placeholder&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="placeholder" id="placeholder">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.placeholder }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label" for="button_text"> Button Text&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="button_text" id="button_text">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.button_text }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="Save-btn">
+          <button type="submit" [disabled]="formProcessing">
+            <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+            Save
+          </button>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>

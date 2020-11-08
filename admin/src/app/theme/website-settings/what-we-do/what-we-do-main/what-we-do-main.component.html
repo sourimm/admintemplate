@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-12 col-xl-12 mt-3">
+    <div class="sub-title">{{title}}</div>
+    <ngb-tabset>
+      <ngb-tab title="Banners">
+        <ng-template ngbTabContent>
+          <div [@fadeInOutTranslate] class="m-t-15">
+            <app-what-we-do-banners></app-what-we-do-banners>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Sections">
+        <ng-template ngbTabContent>
+          <div [@fadeInOutTranslate] class="m-t-15">
+            <app-what-we-do-sections></app-what-we-do-sections>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Out Characters">
+        <ng-template ngbTabContent>
+          <div [@fadeInOutTranslate] class="m-t-15">
+            <app-our-characters></app-our-characters>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

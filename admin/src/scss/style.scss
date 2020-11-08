@@ -1,0 +1,276 @@
+/**
+Template Name: Material Able Admin Template
+Author: #
+Email: #
+File: style.css
+=============
+  == Table of Contents==
+	- Custom Css
+	- Generic classes
+		-	Margin, Padding, Font class, text align, position, floating, overflow, background class, text color, display class, boarder class
+	- Theme Elements
+		-	Accordion, Button, tabs, typography, buttons, box shadow, pagination, Basic card
+	- General Elements
+		-	Lable & Badges, Materialize general elements, Lables
+	- Pages
+		-   Progress bar, Chat , dark layout
+============= */
+// General theme contents
+@import '~bootstrap/scss/bootstrap';
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/general";
+@import "partials/generic";
+// Menu
+@import "partials/menu/menu";
+@import "partials/menu/horizontal-menu";
+// Important Theme elements
+@import "partials/theme-elements/button";
+@import "partials/theme-elements/form-elements";
+// Theme elements
+@import "partials/theme-elements/label-badges";
+// Tables
+@import "partials/tables/tables";
+// Other
+@import "partials/other/chat";
+@import "partials/other/progress-bar";
+// Responsive css
+@import "partials/responsive/responsive";
+// dark layout css
+// dark layout css
+@import "partials/dark";
+//angular custom
+@import "partials/custom";
+
+//custom scss
+.code-header {
+  .btn {
+    margin-top: -25px !important;
+  }
+}
+
+ng-select.ng-select > div > div.single {
+  padding: 2px 30px 2px 20px !important;
+}
+
+#toasty .toast.toasty-theme-default.toasty-type-success {
+  background-color: #4dba38;
+}
+
+#toasty .toast.toasty-theme-default.toasty-type-error {
+  background-color: #f32e12;
+}
+
+#toasty .toast.toasty-theme-default.toasty-type-info {
+  background-color: #20e2c0;
+}
+
+#toasty .toast.toasty-theme-default.toasty-type-warning {
+  background-color: #de650e;
+}
+
+#toasty .toast.toasty-theme-default.toasty-type-default {
+  background-color: #b6c0d4;
+}
+
+#toasty .toast.toasty-theme-default {
+  font-family: Tahoma, Geneva, sans-serif !important;
+  font-size: 12px;
+  border-radius: 30px 0px 0px 30px;
+  height: 55px;
+  opacity: 1 !important;
+}
+
+.card {
+  margin-top: 1.8rem !important;
+}
+
+.table.table-de th {
+  padding: 10px 5px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.table.table-de td {
+  padding: 10px 5px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.pcoded .pcoded-navbar .pcoded-item > li.active > a, .pcoded .pcoded-navbar .pcoded-item > li.pcoded-trigger > a, .pcoded .pcoded-navbar .pcoded-item > li:hover > a {
+  box-shadow: 0 3px 8px -9px rgba(0, 0, 0, 0.25);
+}
+
+.pcoded[fream-type="theme1"][theme-layout="vertical"] .page-header {
+  background: #ecf0f5;
+}
+
+.page-header {
+  background-size: cover;
+  position: relative;
+  border-radius: 0;
+  padding-bottom: 4px;
+  padding-top: 37px;
+  .page-block .breadcrumb {
+    background: transparent;
+    margin-bottom: 0;
+    padding: 0;
+    margin-top: 12px;
+    .breadcrumb-item:last-child a {
+      color: #8a8a8a;
+      font-weight: 600;
+    }
+    a {
+      font-size: 14px;
+      color: #8a8a8a;
+      font-weight: 600;
+    }
+    .breadcrumb-item + .breadcrumb-item:before {
+      color: #8a8a8a;
+      font-weight: 600;
+    }
+  }
+}
+
+ng-select.ng-select > div > div.single {
+  padding: 2px 30px 2px 20px !important;
+  border: 1px solid #c3c2c2;
+  color: black !important;
+}
+
+ng-select.ng-select > div > div.single > div.toggle {
+  color: #1b1919;
+  font-size: 9px;
+}
+
+ng-select.ng-select > div > div.single {
+  background-color: #ffffff;
+  color: #fff;
+  padding: 8px 30px 8px 20px;
+  border-radius: 4px;
+  height: auto;
+}
+
+.form-control {
+  border: 1px solid #c3c2c2;
+  border-radius: 4px;
+}
+
+.form-control:disabled {
+  opacity: 1.0;
+}
+
+.header-navbar .navbar-wrapper .navbar-logo {
+  text-transform: none;
+  a {
+    font-size: 28px;
+  }
+}
+
+ng-select.ng-select > div > div.multiple {
+  padding: 3px 5px 1px 5px !important;
+  border-radius: 2px;
+}
+
+ng-select.ng-select > div > div.multiple > div.option {
+  padding: 2px 5px !important;
+  font-size: 12px;
+  border-radius: 0px;
+}
+
+ng-select > div {
+  padding: 2px;
+  border-radius: 3px;
+  //border: 1px solid #c3c2c2 !important;
+}
+
+.validation-error {
+  font-size: 12px;
+  color: red;
+  padding-top: 0px !important;
+}
+
+//Changing Feather Icon Size
+.feather-16 {
+  font-size: 18px;
+}
+
+.disabled-cursor {
+  cursor: no-drop;
+}
+
+table {
+  tr {
+    td {
+      .btn-sm, .btn-group-sm > .btn {
+        padding: 3px 10px;
+      }
+    }
+  }
+}
+
+//.form-control.ng-invalid {     border-left:5px solid red; }
+
+.renderer-table {
+  width: 100%;
+  border: 1px solid black;
+  margin-bottom: 50px;
+  background-color: white;
+}
+
+.renderer-table th {
+  background-color: #b6c0d4;
+  color: black;
+  padding: 5px;
+  font-size: 12px;
+  border: 1px solid white;
+}
+
+.renderer-table tr {
+  border: 1px solid #eeeeee;
+}
+
+.renderer-table tr td {
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+.renderer-div {
+  border: 2px solid lightgray;
+  background-color: #EEE;
+  padding: 5px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  display: block;
+}
+
+.renderer-button {
+  font-size: 12px;
+  margin-left: 10px;
+  border-radius: 3px;
+  line-height: 10px !important;
+}
+
+.renderer-textarea {
+  width: 50%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.renderer-div-hide {
+  display: none;
+}
+
+.plus:before {
+  font-family: FontAwesome;
+  content: "\f067";
+}
+
+.minus:before {
+  font-family: FontAwesome;
+  content: "\f068";
+}
+
+
+

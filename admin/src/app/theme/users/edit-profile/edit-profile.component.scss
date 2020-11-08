@@ -1,0 +1,36 @@
+.img-circle-div {
+  height: 200px;
+  width: 200px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: auto;
+  border: 1px solid #4680ff;
+}
+.upload-profile-img {
+  position: absolute;
+  background: #0000006b;
+  border-radius: 0 0 57px 57px;
+  font-size: 20px;
+  height: 40px;
+  width: 200px;
+  padding-top: 5px;
+  right: 0;
+  bottom: -40px;
+  cursor: pointer;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 100000;
+  i {
+    color: #cccccc;
+  }
+}
+.img-circle.img-height:hover ~ .upload-profile-img, .upload-profile-img:hover{
+  visibility: visible;
+  bottom: 0;
+}
+
+.img-circle {
+  height: 198px !important;
+  width: 198px !important;
+}

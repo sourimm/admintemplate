@@ -1,0 +1,211 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <app-card>
+
+      <div class="row mt-5">
+        <div class="col-md-4">
+          <h5>Weather Report Character</h5><br>
+          <img src="https://eduoselvalue.com/uploads/file-manager/weather_reports/wr-character.png" alt="" width="150">
+          <br>
+          <label class="mt-3">Choose image to update:</label>
+          <input type="file" (change)="processCharacter($event)"> <br>
+          <button class="btn btn-primary btn-sm mt-2" [disabled]="!characterImg" (click)="uploadCharacterImage()">Upload</button>
+        </div>
+      </div>
+
+      <form action="javascript:">
+
+        <div class="row"><div class="col-md-12"><hr></div></div>
+        <div class="row">
+          <div class="col-md-6 pt-3">
+            <div class="row mb-3">
+              <div class="col-md-9">
+                <h5 class="mb-2">Categories</h5>
+              </div>
+              <div class="col-md-3 text-right Save-btn add-butn">
+                <button (click)="addEdit('category', {
+                  'id': '0',
+                  'title': '',
+                  'video_url': '',
+                  'parent_id': '0',
+                  'image_url': ''
+                })"> Add New</button>
+              </div>
+            </div>
+            <table class="table table-bordered">
+              <thead>
+              <tr class="bg-light serial">
+                <th> #</th>
+                <th> Title</th>
+                <th> Image</th>
+                <th> Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngIf="loading" class="text-center serial">
+                <td colspan="10"><i class="fa fa-spinner fa-spin"></i></td>
+              </tr>
+
+              <tr class="serial" *ngFor="let report of reports">
+                <td scope="row"><strong>{{ report.counter }}</strong></td>
+                <td>{{ report.title }}</td>
+                <td><img src="{{ report.image_url }}" alt="" style="height: 50px"></td>
+                <td>
+                  <button class="btn btn-info btn-sm mr-2" (click)="addEdit('category', report)">Edit</button>&nbsp;
+                  <button class="btn btn-success btn-sm mr-2" (click)="showSubCategoryData(report)">Show Items</button>&nbsp;
+                  <button class="btn btn-danger btn-sm" (click)="openConfirmsSwal(report.id)">Delete</button>
+                </td>
+              </tr>
+              </tbody>
+
+              <tbody *ngIf="reports.length === 0">
+              <tr class="serial" *ngIf="!loading">
+                <td colspan="10" class="text-center">No record found</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-6 pt-3">
+            <div class="row mb-3">
+              <div class="col-md-9">
+                <h5 class="mb-2">Sub Categories: '{{ categoryName }}'</h5>
+              </div>
+              <div class="col-md-3 text-right Save-btn add-butn">
+                <button (click)="addEdit('sub_category', {
+    'id': '0',
+    'title': '',
+    'video_url': '',
+    'parent_id': '0',
+    'image_url': ''
+  })"> Add New</button>
+              </div>
+            </div>
+            <table class="table table-bordered">
+              <thead>
+              <tr class="bg-light serial">
+                <th> #</th>
+                <th> Title</th>
+                <th> Image</th>
+                <th> Video</th>
+                <th> Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngIf="subLoading" class="text-center serial">
+                <td colspan="10"><i class="fa fa-spinner fa-spin"></i></td>
+              </tr>
+
+              <tr class="serial" *ngFor="let subReport of reportCategories">
+                <td scope="row"><strong>{{ subReport.counter }}</strong></td>
+                <td>{{ subReport.title }}</td>
+                <td><img src="{{ subReport.image_url }}" alt="" style="height: 50px"></td>
+                <td></td>
+                <td>
+                  <button class="btn btn-info btn-sm mr-2" (click)="addEdit('sub_category', subReport)">Edit</button>&nbsp;
+                  <!--<button class="btn btn-success btn-sm mr-2" (click)="showSubCategoryData(subReport)">Show Items</button>&nbsp;-->
+                  <button class="btn btn-danger btn-sm" (click)="openConfirmsSwal(subReport.id)">Delete</button>
+                </td>
+              </tr>
+              </tbody>
+
+              <tbody *ngIf="reportCategories.length === 0">
+              <tr class="serial" *ngIf="!subLoading">
+                <td colspan="10" class="text-center" *ngIf="showSubCategory">No record found</td>
+                <td colspan="10" class="text-center" *ngIf="!showSubCategory">Please select category to see sub categories</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'" *ngIf="addModalLarge">
+  <div class="app-modal-header">
+    <h4 class="modal-title" *ngIf="!edit && type === 'category'">Add Category</h4>
+    <h4 class="modal-title" *ngIf="edit && type === 'category'">Edit Category</h4>
+    <h4 class="modal-title" *ngIf="!edit && type === 'sub_category'">Add Category Item</h4>
+    <h4 class="modal-title" *ngIf="edit && type === 'sub_category'">Edit Category Item</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width" *ngIf="!formLoading">
+    <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title_class">
+            <span class="bold">Title:</span>
+            <span><input type="text" formControlName="title"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.title }}</p>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="type === 'sub_category'">
+          <div class="title_class">
+            <span class="bold">Video URL:</span>
+            <span><input type="text" formControlName="video_url"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.video_url }}</p>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="type === 'sub_category'">
+          <div class="title_class">
+            <span class="bold">Category:</span>
+            <span><ng-select [ngClass]="'ng-select'" [options]="dropdown"  formControlName="parent_id"></ng-select></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.parent_id }}</p>
+          </div>
+        </div>
+        <div class="col-md-12 file-btn">
+          <div>
+            <span> Preview Image: </span>
+            <div class="file btn btn-sm files-btn">
+              Upload
+              <input type="file" class="form-control" formControlName="file" (change)="fileProgress($event)"/>
+            </div>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.image_url }}</p>
+          </div>
+
+          <div *ngIf="previewUrl">
+            <div class="preview mt-3">
+              <label>Preview</label>
+              <div class="image-preview mt-2">
+                <img [src]="previewUrl"/>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="edit">
+            <div class="preview mt-3">
+              <label>Preview</label>
+              <div class="image-preview mt-2">
+                <img [src]="formData.image_url"/>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="follow_class">
+        <button type="submit" class="submit" [disabled]="formProcessing">
+          <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+          Save
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="app-modal-body for_width" *ngIf="formLoading">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [title]="'File Manager'" class="" [cardOptionBlock]="true">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <span><a [routerLink]="['/file-manager']"><i class="feather icon-home"></i></a></span>
+          <span *ngFor="let nav of folder_path; let last=last;">
+            <a *ngIf="!last" [routerLink]="['/file-manager', nav.id]"> / {{nav.name}}</a>
+            <span *ngIf="last" class="last-menu"> / {{nav.name}} </span>
+          </span>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <!--<button type="button" class="btn btn-sm btn-info" *ngIf="temp > 0" [routerLink]="['/file-manager/' , temp]"> < Back</button>-->
+        </div>
+        <div class="col-md-6 text-right">
+          <button type="button" class="btn btn-sm btn-info" (click)="getFolderFormData()"> + Add Folder</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="!loading">
+        <div class="col-md-1 folders" *ngFor="let item of folders">
+        <div class="manager">
+          <a [routerLink]="['/file-manager', item.id]">
+            <p style="margin-bottom: 0px"><i class="fa fa-folder fa-5x"></i></p>
+            <p class="file-name">{{item.name}}</p>
+          </a>
+        </div>
+        <div class="">
+          <div class="row">
+            <div class="col-md-12 m-0 p-0">
+              <button class="btn btn-danger btn-block btn-sm" (click)="deleteFile(item.id, 'folder')" type="button"><i class="fa fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="col-4 col-sm-4 col-md-1 col-lg-1 folders" *ngFor="let item of folder_files">
+          <a href="{{item.path}}" target="_blank">
+            <div class="manager">
+            <p style="margin-bottom: 0px; text-align: center" *ngIf="item.ext !== 'jpg' && item.ext !== 'png' && item.ext !== 'gif' && item.ext !== 'tiff' && item.ext !== 'jpeg'"><i class="fa fa-file fa-5x"></i></p>
+
+            <img style="margin-bottom: 0px; width: 100%;" *ngIf="item.ext === 'jpg' || item.ext === 'png' || item.ext === 'gif' || item.ext === 'tiff' || item.ext === 'jpeg'" [src]="item.path">
+            <p class="file-name">{{item.name}}</p>
+           </div>
+          </a>
+          <div class="">
+          <div class="row" style="bottom: 0;">
+            <div class="col-md-6 m-0 p-0">
+              <button class="btn btn-info btn-block btn-sm" type="button" (click)="copyMessage(item.path)"><i class="fa fa-link"></i></button>
+            </div>
+            <div class="col-md-6 m-0 p-0">
+              <button class="btn btn-danger btn-block btn-sm" (click)="deleteFile(item.id, 'file')" type="button"><i class="fa fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="folders.length === 0  && folder_files.length === 0">
+        <p>{{message}}</p>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-12 p-0">
+          <ngx-dropzone (change)="onSelect($event)" [expandable]="true">
+            <ngx-dropzone-label>Upload or Drag Files</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+          <button type="button" class="btn btn-sm btn-info mt-3" (click)="saveFiles()" [disabled]="myfiles.length === 0">
+            <i class="fa fa-spin fa-spinner" *ngIf="uploadFileProcessing"></i>
+            Upload
+          </button>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="loading">
+        <span><i class="fa fa-spinner fa-4x"></i></span>
+      </div>
+
+    </app-card>
+  </div>
+</div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-lg'" *ngIf="addModalLarge">
+  <div class="app-modal-header">
+    <h4 class="modal-title">Add Folder</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width" *ngIf="!folderDataLoading">
+    <form [formGroup]="folderForm" (ngSubmit)="submit()" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title_class">
+            <span class="bold">Name:</span>
+            <span><input type="text" class="form-control" formControlName="name"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.name }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="follow_class mt-2 text-right">
+
+        <button type="submit" class="submit btn btn-info btn-sm" [disabled]="formProcessing">
+          <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+          Save
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+
+  <div class="app-modal-body for_width" *ngIf="folderDataLoading">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

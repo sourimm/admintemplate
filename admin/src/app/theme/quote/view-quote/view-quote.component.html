@@ -1,0 +1,80 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-header-text">Demo Request Detail</h5>
+    <button id="edit-btn" [routerLink]="['/demo-request/list']" type="button" class="btn btn-sm btn-primary pull-right ripple light">
+      < Back
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="view-info" *ngIf="!form_loading">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="general-info">
+            <div class="row">
+              <div class="col-lg-12 col-xl-6">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <tbody>
+                    <tr>
+                      <th scope="row">Full Name</th>
+                      <td>{{quoteData.first_name}} {{quoteData.last_name}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Phone Number</th>
+                      <td>{{quoteData.phone}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">State</th>
+                      <td>{{quoteData.state}}</td>
+                    </tr>
+
+                    <tr>
+                      <th scope="row">Focus Areas</th>
+                      <td><span *ngFor="let focus_area of quoteData.focus_areas">{{focus_area}}<br></span></td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end of table col-lg-6 -->
+              <div class="col-lg-12 col-xl-6">
+                <div class="table-responsive">
+                  <table class="table">
+                    <tbody>
+                    <tr>
+                      <th scope="row">Email</th>
+                      <td>{{quoteData.email}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Mobile Number</th>
+                      <td>{{quoteData.mobile}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Country</th>
+                      <td>{{quoteData.country}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Question</th>
+                      <td>{{quoteData.question}}</td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- end of table col-lg-6 -->
+            </div>
+            <!-- end of row -->
+          </div>
+          <!-- end of general info -->
+        </div>
+        <!-- end of col-lg-12 -->
+      </div>
+      <!-- end of row -->
+    </div>
+    <!-- end of view-info -->
+    <!-- end of edit-info -->
+  </div>
+  <!-- end of card-body -->
+</div>

@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <app-card>
+      <form action="javascript:">
+
+        <div class="row">
+          <div class="col-md-10 text-right Save-btn add-butn">
+            <button (click)="getTeacherWellbeingFormData()"> Add New</button>
+          </div>
+        </div>
+        <div class="row"><div class="col-md-10"><hr></div></div>
+        <div class="row">
+          <div class="col-md-10 col-lg-10 pt-3">
+            <h5 class="mb-2">Teacher Wellbeing</h5>
+            <table class="table table-bordered">
+              <thead>
+              <tr class="bg-light serial">
+                <th> #</th>
+                <th> Title</th>
+                <th> Video</th>
+                <th> Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngIf="loading" class="text-center serial">
+                <td colspan="10"><i class="fa fa-spinner fa-spin"></i></td>
+              </tr>
+
+              <tr class="serial" *ngFor="let teacherWellbeing of teacherWellbeings">
+                <td scope="row"><strong>{{ teacherWellbeing.counter }}</strong></td>
+                <td>{{ teacherWellbeing.title }}</td>
+                <td><a href="{{ teacherWellbeing.media_path }}" target="_blank">Show Video</a></td>
+                <td>
+                  <button class="btn btn-info btn-sm mr-2" (click)="getTeacherWellbeingFormData(teacherWellbeing.id)"><i class="fa fa-pencil m-0"></i></button>
+                  <button class="btn btn-danger btn-sm" (click)="openConfirmsSwal(teacherWellbeing.id)"><i class="fa fa-trash m-0"></i></button>
+                </td>
+              </tr>
+              </tbody>
+
+              <tbody *ngIf="teacherWellbeings.length === 0 && !loading">
+              <tr class="serial">
+                <td colspan="10" class="text-center">{{ message }}</td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="mt-3">
+              <ngb-pagination
+                class="d-flex justify-content-end"
+                [collectionSize]="totalRecords"
+                [(page)]="page_no"
+                [pageSize]="page_size"
+                (pageChange)="onPageChange($event)"
+                [maxSize]="3"
+                [rotate]="true"
+                [boundaryLinks]="true"
+              >
+              </ngb-pagination>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'" *ngIf="addModalLarge">
+  <div class="app-modal-header">
+    <h4 class="modal-title" *ngIf="!edit">Add Teacher Wellbeing</h4>
+    <h4 class="modal-title" *ngIf="edit">Edit Teacher Wellbeing</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width" *ngIf="!teacherWellbeingDataLoading">
+    <form [formGroup]="teacherWellbeingForm" (ngSubmit)="submit()" autocomplete="off">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title_class">
+            <span class="bold">Title:&nbsp;<span class="text-danger">*</span></span>
+            <span><input type="text" formControlName="title"></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.title }}</p>
+          </div>
+          <div class="title_class">
+            <span class="bold">Video:&nbsp;<span class="text-danger" *ngIf="!edit">*</span></span>
+            <span><input type="file" class="form-control" formControlName="file" (change)="fileProgress($event)"/></span>
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.video }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-3" *ngIf="edit && showUrl">
+        <div class="title_class">
+          <span class="bold">File Path: </span>
+          <span><a [href]="teacherWellbeingData.media_path" target="_blank">{{ teacherWellbeingData.media_path }}</a></span>
+        </div>
+      </div>
+
+      <div class="col-md-12 file-btn">
+        <div>
+          <span> Preview Image:&nbsp;<span class="text-danger" *ngIf="!edit">*</span></span>
+          <div class="file btn btn-sm files-btn">
+            Upload
+            <input type="file" class="form-control" formControlName="file1" (change)="fileProgress1($event)"/>
+          </div>
+          <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.preview_image }}</p>
+        </div>
+
+        <div *ngIf="previewUrl">
+          <div class="preview mt-3">
+            <label>Preview</label>
+            <div class="image-preview mt-2">
+              <img [src]="previewUrl"/>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="edit">
+          <div class="preview mt-3">
+            <label>Preview</label>
+            <div class="image-preview mt-2">
+              <img [src]="teacherWellbeingData.preview_image"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="follow_class">
+        <button type="submit" class="submit" [disabled]="formProcessing">
+          <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+          Save
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="app-modal-body for_width" *ngIf="teacherWellbeingDataLoading">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <app-card [title]="pageTitle" class="" [cardOptionBlock]="true">
+      <div *ngIf="form_loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+      <form [formGroup]="instructorForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!form_loading">
+        <!--<div class="col-md-6 text-right view-btn">-->
+        <!--<button> View All </button>-->
+        <!--</div>-->
+
+        <div class="row">
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> School Name&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="first_name">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.first_name }}</p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> User Name&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="user_name">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.user_name }}</p>
+              </div>
+            </div>
+				
+			
+			<div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Seats for Students&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="stud_seat">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.stud_seat }}</p>
+              </div>
+            </div>
+			
+			  <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Seats for Teachers&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="teacher_seat">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.teacher_seat }}</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 title-head">
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Email&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="email">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.email }}</p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Password&nbsp;<span class="text-danger" *ngIf="id === 0">*</span> </label>
+              <div class="col-sm-9">
+                <input type="password" class="form-control" formControlName="password">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.password }}</p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Confirm Password&nbsp;<span class="text-danger" *ngIf="id === 0">*</span> </label>
+              <div class="col-sm-9">
+                <input type="password" class="form-control" formControlName="conf_password">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.conf_password }}</p>
+              </div>
+            </div>
+
+			 <div class="form-group row">
+              <label class="col-sm-3 col-form-label"> Seats for School admins&nbsp;<span class="text-danger">*</span> </label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" formControlName="school_seat">
+                <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.school_seat }}</p>
+              </div>
+            </div>
+			
+			
+			
+			
+          </div>
+
+        </div>
+
+
+        <div class="Save-btn">
+          <button type="submit" [disabled]="formProcessing">
+            <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+            Save
+          </button>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>

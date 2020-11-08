@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-md-7">
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+          <h6 class="taskboard-header">Characters</h6>
+          <div class="taskboard-cards" [dragula]='"characters"' [(dragulaModel)]="charactersArray">
+            <div class="taskboard-task bg-light" *ngFor="let characterinfo of characters">
+              <div class="row">
+                <div class="col-md-8">
+                  <h2>{{characterinfo.title}}</h2>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-info btn-sm m-0 mr-2"
+                          (click)="getFormData(characterinfo.id)"><i class="fa fa-pencil"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm m-0"
+                          (click)="openConfirmsSwal(characterinfo.id)"><i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="taskboard-task bg-light" *ngIf="characters.length === 0">
+              <div class="row">
+                <div class="col-md-12">
+                  No Records Found
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <button type="button" class="btn btn-success btn-sm mt-3 pull-right" (click)="submitOrder()">Save
+            Order
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-5">
+
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+
+          <h6 class="taskboard-header">{{ pageTitle }}</h6>
+
+          <div class="taskboard-cards">
+
+            <div *ngIf="form_loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+
+            <form [formGroup]="characterForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!form_loading">
+
+              <label>Title</label>
+              <input type="text" class="form-control" formControlName="title">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.title }}</p>
+
+              <label class="mt-3">Likes Text</label>
+              <input type="text" class="form-control" formControlName="likes_text">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.likes_text }}</p>
+
+              <label class="mt-3">Dislikes Text</label>
+              <input type="text" class="form-control" formControlName="dislikes_text">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.dislikes_text }}</p>
+
+              <label class="mt-3">Hobbies Text</label>
+              <input type="text" class="form-control" formControlName="hobbies_text">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.hobbies_text }}</p>
+
+              <label class="mt-3">Personality Text</label>
+              <input type="text" class="form-control" formControlName="personality_text">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.personality_text }}</p>
+
+              <label class="mt-3">Favourite Color Text</label>
+              <input type="text" class="form-control" formControlName="favourites_text">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.favourites_text }}</p>
+
+              <label class="mt-3">Image URL</label>
+              <input type="text" class="form-control" formControlName="media_path">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.media_path }}</p>
+
+              <div class="Save-btn">
+                <button class="btn-sm" type="submit" [disabled]="formProcessing">
+                  <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+                  Save
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

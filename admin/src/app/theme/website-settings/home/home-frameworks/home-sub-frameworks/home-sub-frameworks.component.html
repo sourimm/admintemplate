@@ -1,0 +1,109 @@
+<app-modal-basic #modalLarge [dialogClass]="'modal-lg'" *ngIf="addModalLarge" class="largeModalCustom">
+  <div class="app-modal-header">
+    <h4 class="modal-title">Add Sub Frameworks</h4>
+    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+      <span aria-hidden="true" class="cross">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body for_width" *ngIf="!frameworks_loading">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="taskboard page-height">
+          <div class="taskboard-wrapper">
+            <div class="taskboard-list">
+              <h6 class="taskboard-header">Sub Frameworks</h6>
+              <div class="taskboard-cards" [dragula]='"frameworks"' [(dragulaModel)]="frameworksArray">
+                <div class="taskboard-task bg-light" *ngFor="let frameworkinfo of frameworks">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h2>{{frameworkinfo.description}}</h2>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="button" class="btn btn-info btn-sm m-0 mr-2"
+                              (click)="getFormData(frameworkinfo.id)"><i class="fa fa-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger btn-sm m-0"
+                              (click)="openConfirmsSwal(frameworkinfo.id)"><i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="taskboard-task bg-light" *ngIf="frameworks.length === 0">
+                  <div class="row">
+                    <div class="col-md-12">
+                      No Records Found
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <button type="button" class="btn btn-success btn-sm mt-3 pull-right" (click)="submitOrder()">Save
+                Order
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-5">
+
+        <div class="taskboard page-height">
+          <div class="taskboard-wrapper">
+            <div class="taskboard-list">
+
+              <h6 class="taskboard-header">Add Sub Framework</h6>
+
+              <div class="taskboard-cards">
+
+                <div *ngIf="form_loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+
+                <form [formGroup]="frameworkForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!form_loading">
+
+                  <label>Description</label>
+                  <textarea type="text" class="form-control" formControlName="description"></textarea>
+                  <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.heading }}</p>
+
+                  <div class="desc_class">
+                    <span class="bold">Color:</span>
+                    <span><input type="color" class="form-control" formControlName="color"></span>
+                    <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.color }}</p>
+                  </div>
+
+                  <div class="desc_class">
+                    <span class="bold">Image:</span>
+                    <span><input type="text" class="form-control" formControlName="media_path"></span>
+                    <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.media_path }}</p>
+                  </div>
+
+                  <div class="Save-btn">
+                    <button class="btn-sm" type="submit" [disabled]="formProcessing">
+                      <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+                      Save
+                    </button>
+                  </div>
+
+                </form>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="app-modal-body for_width" *ngIf="frameworks_loading">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+  </div>
+
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
+    <button type="button" class="btn btn-primary ripple light">Save changes</button>
+  </div>
+</app-modal-basic>

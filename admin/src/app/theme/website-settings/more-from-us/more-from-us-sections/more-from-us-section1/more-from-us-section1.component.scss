@@ -1,0 +1,34 @@
+.image-preview{
+  img{
+    height: 200px;
+  }
+  iframe{
+    height: 200px;
+  }
+}
+
+.sections{
+  img{
+    height: 200px;
+    width: 200px;
+  }
+  iframe{
+    height: 200px;
+    width: 200px;
+  }
+}
+
+.taskboard .taskboard-wrapper{
+  width: 100%;
+}
+
+.taskboard-task{
+  img{
+    height: auto;
+    width: 100%;
+  }
+  iframe{
+    height: auto;
+    width: 100%;
+  }
+}

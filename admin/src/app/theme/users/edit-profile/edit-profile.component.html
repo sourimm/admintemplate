@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- Basic Form Inputs card start -->
+    <app-card [title]="pageTitle" [cardOptionBlock]="true">
+      <!--<form>-->
+      <form [formGroup]="profileForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!loading">
+
+        <div class="row justify-content-center mb-5 text-center">
+          <div class="col-md-4">
+            <div class="img-circle-div" *ngIf="profileFormEnable">
+              <img class="img-circle img-height" [src]="imageUrl" alt="user" *ngIf="showFakeImg">
+              <img class="img-circle img-height" src="{{ userProfileData.avatar }}" alt="user" *ngIf="userProfileData.avatar !== null && !showFakeImg">
+              <img class="img-circle img-height" src="assets/images/blank.png" alt="user" *ngIf="userProfileData.avatar === null && !showFakeImg">
+              <span class="upload-profile-img" (click)="showInputFilePopup($event)">
+                <i class="fa fa-camera"></i>
+              </span>
+              <input style="display: none" type="file" id="idPhoto" (change)="onIdPhotoLoad($event)" #idPhoto>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-1">
+            <label class="col-form-label" for="name">Name<span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="name" formControlName="name">
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.name }}</p>
+          </div>
+
+          <div class="col-md-1">
+            <label class="col-form-label" for="username">Username<span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="username" formControlName="username">
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.username }}</p>
+          </div>
+
+          <div class="col-md-1">
+            <label class="col-form-label" for="email">Email<span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="email" formControlName="email">
+            <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.email }}</p>
+          </div>
+        </div>
+
+        <h4 class="sub-title"></h4>
+
+        <div class="row justify-content-center">
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-block ripple light" [disabled]="formProcessing">
+              <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </app-card>
+    <!-- Basic Form Inputs card end -->
+  </div>
+</div>

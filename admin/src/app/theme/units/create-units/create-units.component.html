@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Form Inputs card start -->
+    <app-card [title]="pageTitle" class="" [cardOptionBlock]="true">
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="title_class">
+            <span class="bold">Grade Pair:&nbsp;<span class="text-danger">*</span></span>
+            <span>
+                <ng-select [ngClass]="'ng-select'" [options]="grades" [(ngModel)]="grade_pair_id" (selected)="getUnitFormData(id, grade_pair_id)"></ng-select>
+            </span>
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="unitForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!form_loading">
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="title_class">
+                  <span class="bold">Title:&nbsp;<span class="text-danger">*</span></span>
+                  <span><input type="text" class="form-control" formControlName="title"></span>
+                  <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.title }}</p>
+
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="title_class">
+                  <span class="bold">Focus Areas:&nbsp;<span class="text-danger">*</span></span>
+                  <span>
+                <ng-select [ngClass]="'ng-select'" [options]="focusAreasDropdown" formControlName="focus_areas" [multiple]="true"></ng-select>
+              </span>
+                  <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.focus_areas }}</p>
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="title_class">
+                  <span class="bold">No. of weeks:&nbsp;<span class="text-danger">*</span></span>
+                  <span><input type="number" class="form-control" formControlName="no_of_weeks"></span>
+                  <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.no_of_weeks }}</p>
+
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <div class="title_class">
+                  <span class="bold">Lessons per week:&nbsp;<span class="text-danger">*</span></span>
+                  <span><input type="number" class="form-control" formControlName="lessons_per_week"></span>
+                  <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.lessons_per_week }}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="title_class">
+                  <span class="bold">Description:&nbsp;<span class="text-danger">*</span></span>
+                  <span><textarea type="text" class="form-control" formControlName="description" rows="10"></textarea></span>
+                  <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row"  formArrayName="learning_areas_list">
+
+          <div class="col-md-12 mb-2">
+            <div class="title_class">
+              <span class="bold">Learning Areas:&nbsp;<span class="text-danger">*</span></span>
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.learning_areas }}</p>
+            </div>
+          </div>
+
+          <div class="col-md-12" *ngFor="let learning_area of unitForm['controls'].learning_areas_list['controls']; let iLArea = index;">
+            <div class="row" formGroupName="{{ iLArea }}">
+              <div class="col-md-12 col-lg-12">
+                <input type="checkbox" class="mr-3" formControlName="checked">
+                <label><b>{{unitData.learning_areas[iLArea].title}}</b></label>
+                <div formArrayName="lessons_list">
+                  <ul>
+                    <li  *ngFor="let lesson of learning_area['controls'].lessons_list['controls']; let iLesson = index;">
+                      <div formGroupName="{{ iLesson }}">
+                        ---- <input type="checkbox" class="mr-3" formControlName="checked">
+                        <label>{{unitData.learning_areas[iLArea].lessons[iLesson].name}}</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 text-danger" *ngIf="unitForm['controls'].learning_areas_list['controls'].length === 0">
+            <p>No Learning Area found against this grade</p>
+          </div>
+
+        </div>
+
+        <div class="follow_class">
+          <button type="submit" class="submit" [disabled]="formProcessing">
+            <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+            Save
+          </button>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>

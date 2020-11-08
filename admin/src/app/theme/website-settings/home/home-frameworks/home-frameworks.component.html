@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-7">
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+          <h6 class="taskboard-header">Frameworks</h6>
+          <div class="taskboard-cards" [dragula]='"frameworks"' [(dragulaModel)]="frameworksArray">
+            <div class="taskboard-task bg-light" *ngFor="let frameworkinfo of frameworks">
+              <div class="row">
+                <div class="col-md-8 working-info">
+                  <h2>{{frameworkinfo.heading}}</h2>
+                </div>
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-info btn-sm m-0 mr-2"
+                          (click)="updateFrameworksModal(frameworkinfo.id)">Add Sub Frameworks
+                  </button>
+
+                  <button type="button" class="btn btn-info btn-sm m-0 mr-2 btn-pencil"
+                          (click)="getFormData(frameworkinfo.id)"><i class="fa fa-pencil"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm m-0 btn-time"
+                          (click)="openConfirmsSwal(frameworkinfo.id)"><i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="taskboard-task bg-light" *ngIf="frameworks.length === 0">
+              <div class="row">
+                <div class="col-md-12">
+                  No Records Found
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <button type="button" class="btn btn-success btn-sm mt-3 pull-right" (click)="submitOrder()">Save
+            Order
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-5">
+
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+
+          <h6 class="taskboard-header">Add Main Framework</h6>
+
+          <div class="taskboard-cards">
+
+            <div *ngIf="form_loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+
+            <form [formGroup]="frameworkForm" (ngSubmit)="submit()" autocomplete="off" *ngIf="!form_loading">
+
+              <label>Heading</label>
+              <input type="text" class="form-control" formControlName="heading">
+              <p class="text-danger" *ngIf="validationErrors">{{ validationErrors.heading }}</p>
+
+              <div class="Save-btn">
+                <button class="btn-sm" type="submit" [disabled]="formProcessing">
+                  <i class="fa fa-spin fa-spinner" *ngIf="formProcessing"></i>
+                  Save
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div *ngIf="parent_id"><app-home-sub-frameworks [flags]="flags" [parent_id]="parent_id"></app-home-sub-frameworks></div>

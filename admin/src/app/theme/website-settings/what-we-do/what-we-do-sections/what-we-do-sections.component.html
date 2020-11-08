@@ -1,0 +1,102 @@
+<div class="page-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="taskboard">
+        <div class="taskboard-wrapper">
+          <div class="taskboard-list">
+            <h6 class="taskboard-header">{{page}} {{page_type}} Page Sections</h6>
+            <div class="taskboard-cards" *ngIf="!loading">
+
+              <div class="taskboard-task bg-light">
+
+                <h6>Section 1</h6>
+
+                <div class="row" *ngIf="sections[1].id > 0">
+                  <div class="col-md-8">
+                    <h5>{{sections[1].heading_line_1}} {{sections[1].heading_line_2}}</h5>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" class="btn btn-sm btn-info mr-2" (click)="updateSectionModal(sections[1].id, 1)"><i class="fa fa-pencil m-0"></i></button>
+                    <button type="button"  class="btn btn-sm btn-danger" (click)="openConfirmsSwal(sections[1].id)"><i class="fa fa-times m-0"></i></button>
+                  </div>
+                </div>
+                <div class="row" *ngIf="sections[1].length === 0 || sections[1].length === '0'">
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-sm btn-block text-center btn-info mr-2" (click)="updateSectionModal(0, 1)"><i class="fa fa-plus m-0"></i></button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="taskboard-task bg-light">
+
+                <h6>Section 2</h6>
+                <div class="row" *ngIf="sections[2].id > 0">
+                  <div class="col-md-8">
+                    <h5>{{sections[2].heading_line_1}} {{sections[2].heading_line_2}}</h5>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" class="btn btn-sm btn-info mr-2" (click)="updateSectionModal(sections[2].id, 2)"><i class="fa fa-pencil m-0"></i></button>
+                    <button type="button"  class="btn btn-sm btn-danger" (click)="openConfirmsSwal(sections[2].id)"><i class="fa fa-times m-0"></i></button>
+                  </div>
+                </div>
+                <div class="row" *ngIf="sections[2].length === 0 || sections[2].length === '0'">
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-sm btn-block text-center btn-info mr-2" (click)="updateSectionModal(0, 2)"><i class="fa fa-plus m-0"></i></button>
+                  </div>
+                </div>
+
+              </div>
+              <div class="taskboard-task bg-light">
+
+                <h6>Section 3</h6>
+                <div class="row" *ngIf="sections[3].id > 0">
+                  <div class="col-md-8">
+                    <h5>{{sections[3].heading_line_1}} {{sections[3].heading_line_2}}</h5>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" class="btn btn-sm btn-info mr-2" (click)="updateSectionModal(sections[3].id, 3)"><i class="fa fa-pencil m-0"></i></button>
+                    <button type="button"  class="btn btn-sm btn-danger" (click)="openConfirmsSwal(sections[3].id)"><i class="fa fa-times m-0"></i></button>
+                  </div>
+                </div>
+                <div class="row" *ngIf="sections[3].length === 0 || sections[3].length === '0'">
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-sm btn-block text-center btn-info mr-2" (click)="updateSectionModal(0, 3)"><i class="fa fa-plus m-0"></i></button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="taskboard-task bg-light">
+
+                <h6>Section 4</h6>
+                <div class="row" *ngIf="sections[4].id > 0">
+                  <div class="col-md-8">
+                    <h5>{{sections[4].heading_line_1}} {{sections[4].heading_line_2}}</h5>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="button" class="btn btn-sm btn-info mr-2" (click)="updateSectionModal(sections[4].id, 4)"><i class="fa fa-pencil m-0"></i></button>
+                    <button type="button"  class="btn btn-sm btn-danger" (click)="openConfirmsSwal(sections[4].id)"><i class="fa fa-times m-0"></i></button>
+                  </div>
+                </div>
+                <div class="row" *ngIf="sections[4].length === 0 || sections[4].length === '0'">
+                  <div class="col-md-12">
+                    <button type="button" class="btn btn-sm btn-block text-center btn-info mr-2" (click)="updateSectionModal(0, 4)"><i class="fa fa-plus m-0"></i></button>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <!--<button type="button" class="mt-3 btn btn-success btn-sm pull-right" (click)="submitOrder()">Save Order</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="order === 1"><app-what-we-do-section1 [flags]="flags" [page]="page" [section_id]="section_id" [order]="order" (isSuccessed)="getSections()"></app-what-we-do-section1></div>
+<div *ngIf="order === 2"><app-what-we-do-section2 [flags]="flags" [page]="page" [section_id]="section_id" [order]="order" (isSuccessed)="getSections()"></app-what-we-do-section2></div>
+<div *ngIf="order === 3"><app-what-we-do-section3 [flags]="flags" [page]="page" [section_id]="section_id" [order]="order" (isSuccessed)="getSections()"></app-what-we-do-section3></div>
+<div *ngIf="order === 4"><app-what-we-do-section4 [flags]="flags" [page]="page" [section_id]="section_id" [order]="order" (isSuccessed)="getSections()"></app-what-we-do-section4></div>
